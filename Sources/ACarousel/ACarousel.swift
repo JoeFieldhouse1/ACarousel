@@ -30,7 +30,7 @@ public struct ACarousel<Data, ID, Content> : View where Data : RandomAccessColle
     
     public var body: some View {
         GeometryReader { proxy -> AnyView in
-            viewModel.viewSize = proxy.size
+            viewModel.viewSize = CGSize(width: 60, height: 120) //proxy.size
             return AnyView(generateContent(proxy: proxy))
         }.clipped()
     }
@@ -39,11 +39,11 @@ public struct ACarousel<Data, ID, Content> : View where Data : RandomAccessColle
         HStack(spacing: viewModel.spacing) {
             ForEach(viewModel.data, id: viewModel.dataId) {
                 content($0)
-                    .frame(width: viewModel.itemWidth)
+//                    .frame(width: viewModel.itemWidth)
                     .scaleEffect(x: 1, y: viewModel.itemScaling($0), anchor: .center)
             }
         }
-        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
+//        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .leading)
         .offset(x: viewModel.offset)
         .gesture(viewModel.dragGesture)
         .animation(viewModel.offsetAnimation, value: viewModel.offset)
